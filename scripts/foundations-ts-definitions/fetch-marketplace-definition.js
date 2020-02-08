@@ -8,15 +8,8 @@ const path = require('path')
 const sw2dts = require('sw2dts')
 const prettifyCode = require('./format-code')
 
-const apiSchema = [
-  {
-    definitionFile: path.resolve(__dirname, '../types/platform-schema.ts'),
-    endpoint: 'https://dev.platform.reapit.net/docs',
-    headers: {
-      'api-version': 'latest',
-    },
-  },
-]
+// TODO - Should be fetched from reapit-config.json
+const BASE_URL = 'https://dev.platformmarketplace.reapit.net'
 
 // Fetch definitions for a given schema
 const fetchDefinitionsForSchema = async schemaConfig => {
@@ -58,9 +51,16 @@ const fetchDefinitionsForSchema = async schemaConfig => {
 }
 
 // Fetch definitions for all schemas
-;(async () => {
+module.exports = async apiVersion => {
+  const apiSchema = [
+    {
+      definitionFile: path.resolve(__dirname, '../types/marketplace-api-schema.ts'),
+      endpoint: `${BASE_URL}/swagger/v1/swagger.json`,
+      headers: {
+        'X-Api-Key': process.env.MARKETPLACE_API_KEY_DEV,
+        'api-version': apiVersion,
+      },
+    },
+  ]
   return Promise.all(apiSchema.map(fetchDefinitionsForSchema))
-})().catch(err => {
-  console.error(JSON.stringify(err.message))
-  process.exit(1)
-})
+}
