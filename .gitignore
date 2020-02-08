@@ -56,3 +56,5 @@ elements/public
 out*
 package-lock.json
 .env
+
+app-name
