@@ -2,9 +2,10 @@ const { execSync } = require('child_process')
 const semver = require('semver')
 const fs = require('fs')
 const path = require('path')
+const { FOUNDATION_ROOT_FOLDER } = require('./constants')
 
 const { npm_package_name } = process.env
-const packageJsonPath = path.resolve(__dirname, '../package.json')
+const packageJsonPath = path.resolve(FOUNDATION_ROOT_FOLDER, './package.json')
 
 module.exports = () => {
   const remotePackageVersionStdOut = execSync(`yarn info ${npm_package_name} version`)

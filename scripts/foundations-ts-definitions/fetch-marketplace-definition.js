@@ -1,6 +1,3 @@
-require('dotenv').config({
-  path: '../src/constants/.env',
-})
 require('isomorphic-fetch')
 
 const fs = require('fs')
@@ -8,8 +5,10 @@ const path = require('path')
 const sw2dts = require('sw2dts')
 const prettifyCode = require('./format-code')
 
-// TODO - Should be fetched from reapit-config.json
-const BASE_URL = 'https://dev.platformmarketplace.reapit.net'
+const { FOUNDATION_TYPES_FOLDER } = require('./constants')
+const config = require(path.resolve(__dirname, '../../reapit-config.json'))
+const configDev = config['DEV']
+const { MARKETPLACE_API_BASE_URL, MARKETPLACE_API_KEY } = configDev
 
 // Fetch definitions for a given schema
 const fetchDefinitionsForSchema = async schemaConfig => {
@@ -54,10 +53,10 @@ const fetchDefinitionsForSchema = async schemaConfig => {
 module.exports = async apiVersion => {
   const apiSchema = [
     {
-      definitionFile: path.resolve(__dirname, '../types/marketplace-api-schema.ts'),
-      endpoint: `${BASE_URL}/swagger/v1/swagger.json`,
+      definitionFile: path.resolve(FOUNDATION_TYPES_FOLDER, './marketplace-api-schema.ts'),
+      endpoint: `${MARKETPLACE_API_BASE_URL}/swagger/v1/swagger.json`,
       headers: {
-        'X-Api-Key': process.env.MARKETPLACE_API_KEY_DEV,
+        'X-Api-Key': MARKETPLACE_API_KEY,
         'api-version': apiVersion,
       },
     },

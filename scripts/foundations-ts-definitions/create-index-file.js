@@ -1,9 +1,10 @@
 const fs = require('fs')
 const path = require('path')
+const { FOUNDATION_TYPES_FOLDER } = require('./constants')
 
 const prettifyCode = require('./format-code')
-const files = fs.readdirSync(path.resolve(__dirname, '../types'))
-const indexFilePath = path.resolve(__dirname, '../types/index.ts')
+const files = FOUNDATION_TYPES_FOLDER
+const indexFilePath = path.resolve(FOUNDATION_TYPES_FOLDER, './types/index.ts')
 
 fs.writeFileSync(
   indexFilePath,

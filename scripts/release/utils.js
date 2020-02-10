@@ -84,14 +84,14 @@ const editReleaseNote = async ({ packageName, version, previousTag }) => {
     const token = process.env.GITHUB_TOKEN
     const octokit = new Octokit({ auth: token })
     const latestRelease = await octokit.repos.getReleaseByTag({
-      owner: 'reapit',
+      owner: 'phmngocnghia',
       repo: 'foundations',
       tag: `${packageName}_${version}`,
     })
     if (latestRelease && latestRelease.data) {
       const bodyRelease = formatReleaseNote({ previousTag, version, packageName, commitLog })
       await octokit.repos.updateRelease({
-        owner: 'reapit',
+        owner: 'phmngocnghia',
         repo: 'foundations',
         body: bodyRelease,
         name: `${latestRelease.data.name}_released`,
