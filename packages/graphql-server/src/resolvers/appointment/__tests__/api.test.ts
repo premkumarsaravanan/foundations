@@ -81,7 +81,7 @@ describe('appointment apis', () => {
       })
 
       expect(mockedLogError).toHaveBeenCalledWith('callGetAppointmentsAPI', {
-        error: mockedError,
+        error: JSON.stringify(mockedError),
         traceId: mockContext.traceId,
       })
     })
@@ -138,7 +138,7 @@ describe('appointment apis', () => {
       })
 
       expect(mockedLogError).toHaveBeenCalledWith('callGetAppointmentByIdAPI', {
-        error: mockedError,
+        error: JSON.stringify(mockedError),
         traceId: mockContext.traceId,
       })
     })
@@ -211,7 +211,7 @@ describe('appointment apis', () => {
         })
 
         expect(mockedLogError).toHaveBeenCalledWith('callUpdateAppointmentByIdAPI', {
-          error: mockedError,
+          error: JSON.stringify(mockedError),
           traceId: mockContext.traceId,
         })
       })
@@ -272,7 +272,7 @@ describe('appointment apis', () => {
         })
 
         expect(mockedLogError).toHaveBeenCalledWith('callCreateAppointmentByAPI', {
-          error: mockedError,
+          error: JSON.stringify(mockedError),
           traceId: mockContext.traceId,
         })
       })

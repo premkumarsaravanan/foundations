@@ -34,7 +34,7 @@ export const callGetAppointmentsAPI = async (args: GetAppointmentsArgs, context:
     })
     return createResponse as GetAppointmentsResult
   } catch (error) {
-    logger.error('callGetAppointmentsAPI', { traceId, error })
+    logger.error('callGetAppointmentsAPI', { traceId, error: JSON.stringify(error) })
     return errors.generateUserInputError(traceId)
   }
 }
@@ -54,7 +54,7 @@ export const callGetAppointmentByIdAPI = async (args: GetAppointmentByIdArgs, co
     })
     return response as Appointment
   } catch (error) {
-    logger.error('callGetAppointmentByIdAPI', { traceId, error })
+    logger.error('callGetAppointmentByIdAPI', { traceId, error: JSON.stringify(error) })
     return errors.generateUserInputError(traceId)
   }
 }
@@ -87,7 +87,7 @@ export const callUpdateAppointmentByIdAPI = async (args: UpdateAppointmentArgs, 
     })
     return response as Appointment
   } catch (error) {
-    logger.error('callUpdateAppointmentByIdAPI', { traceId, error })
+    logger.error('callUpdateAppointmentByIdAPI', { traceId, error: JSON.stringify(error) })
     return errors.generateUserInputError(traceId)
   }
 }
@@ -109,7 +109,7 @@ export const callCreateAppointmentByAPI = async (args: CreateAppointmentArgs, co
     })
     return true
   } catch (error) {
-    logger.error('callCreateAppointmentByAPI', { traceId, error })
+    logger.error('callCreateAppointmentByAPI', { traceId, error: JSON.stringify(error) })
     return errors.generateUserInputError(traceId)
   }
 }
