@@ -6,18 +6,18 @@
 type Query {
   # appointment
   appointments(
-    PageSize: Int
-    PageNumber: Int
-    SortBy: String
-    Id: [String!]
-    TypeId: [String!]
-    NegotiatorId: [String!]
-    OfficeId: [String!]
-    PropertyId: [String!]
-    Start: String!
-    End: String!
-    IncludeCancelled: Boolean
-    IncludeUnconfirmed: Boolean
+    pageSize: Int
+    pageNumber: Int
+    sortBy: String
+    id: [String!]
+    typeId: [String!]
+    negotiatorId: [String!]
+    officeId: [String!]
+    propertyId: [String!]
+    start: String!
+    end: String!
+    includeCancelled: Boolean
+    includeUnconfirmed: Boolean
   ): GetAppointmentsResult!
   appointment(id: String!): Appointment!
 

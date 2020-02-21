@@ -199,16 +199,16 @@ export type GetAppointmentsResult = {
 }
 
 export type GetAppointmentsArgs = {
-  PageSize?: number
-  PageNumber?: number
-  SortBy?: string
-  Id?: string[]
-  TypeId?: string[]
-  NegotiatorId?: string[]
-  OfficeId?: string[]
-  PropertyId?: string[]
-  Start: string
-  End: string
-  IncludeCancelled?: boolean
-  IncludeUnconfirmed?: boolean
+  pageSize?: number
+  pageNumber?: number
+  sortBy?: string
+  id?: string[]
+  typeId?: string[]
+  negotiatorId?: string[]
+  officeId?: string[]
+  propertyId?: string[]
+  start: string
+  end: string
+  includeCancelled?: boolean
+  includeUnconfirmed?: boolean
 }
