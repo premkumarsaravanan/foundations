@@ -1,0 +1,238 @@
+# Types
+type AppointmentContact {
+
+  """
+  The unique identifier of the contact
+  """
+  id: String
+
+  """
+  The name of the contact
+  """
+  name: String
+
+  """
+  The home phone number of the contact
+  """
+  homePhone: String
+
+  """
+  The work phone number of the contact
+  """
+  workPhone: String
+
+  """
+  The mobile phone number of the contact
+  """
+  mobilePhone: String
+
+  """
+  The email address of the contact
+  """
+  email: String
+}
+
+type AppointmentAttendee {
+  """
+  The unique identifier of the attendee
+  """
+  id: String
+
+  """
+  The type of attendee
+  """
+  type: String
+
+  """
+  A collection of contacts relating to the attendee
+  """
+  contacts: [AppointmentContact]
+}
+
+type AppointmentFollowUp {
+  """
+  The date when the appointment should be followed up
+  """
+  due: String
+
+  """
+  The unique identifier of a pre-defined follow up response type
+  """
+  responseId: String
+
+  """
+  Free text internal follow up notes to be stored against the appointment
+  """
+  notes: String
+}
+
+type Appointment {
+  """
+  The unique identifier of the appointment
+  """
+  id: String
+
+  """
+  The date and time when the appointment was created
+  """
+  created: String
+
+  """
+  The date and time when the appointment was last modified
+  """
+  modified: String
+
+  """
+  The date and time when the appointment will start
+  """
+  start: String
+
+  """
+  The date and time when the appointment will end
+  """
+  end: String
+
+  """
+  The unique identifier of the appointment type
+  """
+  typeId: String
+
+  """
+  A free text description about the appointment
+  """
+  description: String
+
+  """
+  A flag denoting whether or not the appointment recurs
+  """
+  recurring: Boolean
+
+  """
+  A flag denoting whether or not the appointment has been cancelled
+  """
+  cancelled: Boolean
+
+  """
+  Follow up information relating to the appointment
+  """
+  followUp: AppointmentFollowUp
+
+  """
+  The unique identifier of the property related to the appointment
+  """
+  propertyId: String
+
+  """
+  The unique identifier of the negotiator that organised the appointment
+  """
+  organiserId: String
+
+  """
+  A collection of unique identifiers of negotiators attached to the appointment
+  """
+  negotiatorIds: [String!]
+
+  """
+  A collection of unique identifiers of offices attached to the appointment
+  """
+  officeIds: [String!]
+
+  """
+  An appointment attendee
+  """
+  attendee: AppointmentAttendee
+
+  """
+  A flag denoting whether or not the appointment will be accompanied by one or more negotiators
+  """
+  accompanied: Boolean
+
+  """
+  A flag denoting whether or not the main negotiator has confirmed their attendance
+  """
+  negotiatorConfirmed: Boolean
+
+  """
+  A flag denoting whether or not the attendee has confirmed their attendance
+  """
+  attendeeConfirmed: Boolean
+
+  """
+  A flag denoting whether or not the property and/or property's vendor has confirmed their attendance
+  """
+  propertyConfirmed: Boolean
+
+  """
+  App specific metadata that has been set against the appointment
+  """
+  metadata: JSON
+
+  """
+  The ETag for the current version of the appointment. Used for managing update concurrency
+  """
+  _eTag: String
+  _links: JSON
+  _embedded: JSON
+}
+
+type GetAppointmentsResult {
+  pageNumber: Int
+  pageSize: Int
+  pageCount: Int
+  totalCount: Int
+  _links: JSON,
+  _embedded: [Appointment]
+}
+
+
+input UpdateAppointmentInputAttendee {
+    """The unique identifier of the attendee"""
+  id: String
+
+  """The type of attendee (applicant/contact/landlord/tenant)"""
+  type: String
+
+  """
+  A flag denoting whether or not the attendee has confirmed their attendance
+  """
+  confirmed: Boolean
+}
+
+# Input Types
+input CreateAppointmentInputAttendee {
+    """The unique identifier of the attendee"""
+  id: String
+
+  """The type of attendee (applicant/contact/landlord/tenant)"""
+  type: String
+}
+
+input CreateAppointmentInputRecurrence {
+    """The numeric value denoting how often the appointment will recur"""
+  interval: Int
+
+  """The type of unit that the `interval` applies to"""
+  type: String
+
+  """The date and time when the recurrence will stop"""
+  until: String
+}
+
+input UpdateAppointmentInputRecurrence {
+  """The type of unit that the `interval` applies to"""
+  type: String
+
+  """The numeric value denoting how often the appointment will recur"""
+  interval: Int
+
+  """The date and time when the recurrence will stop"""
+  until: String
+}
+
+input UpdateAppointmentInputFollowUp {
+  """The unique identifier of a pre-defined follow up response type"""
+  responseId: String
+
+  """The internal follow up notes to be stored against the appointment"""
+  notes: String
+}

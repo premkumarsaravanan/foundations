@@ -1,97 +1,143 @@
 #import Contact, Contacts from "./resolvers/contact/types.graphql"
 #import ContactIdentityCheck,ContactIdentityChecks from "./resolvers/contact-identity-check/types.graphql"
 #import LoginIdentity, LoginMode, LoginType, Token from './resolvers/auth/types.graphql'
+#import * from './resolvers/appointment/types.graphql'
 
 type Query {
+  # appointment
+  appointments(
+    PageSize: Int
+    PageNumber: Int
+    SortBy: String
+    Id: [String!]
+    TypeId: [String!]
+    NegotiatorId: [String!]
+    OfficeId: [String!]
+    PropertyId: [String!]
+    Start: String!
+    End: String!
+    IncludeCancelled: Boolean
+    IncludeUnconfirmed: Boolean
+  ): GetAppointmentsResult!
+  appointment(id: String!): Appointment!
+
   # contact
-  contact(
-    id: String!,
-  ): Contact!
+  contact(id: String!): Contact!
 
   contacts(
-    name: String,
-    address: String,
-    negotiatorId: [String!],
-    officeId: [String!],
-    active: Boolean,
-    pageNumber: Int,
-    pageSize: Int,
-    sortBy: String,
-    identityCheck: [String!],
-    marketingConsent: [String!],
+    name: String
+    address: String
+    negotiatorId: [String!]
+    officeId: [String!]
+    active: Boolean
+    pageNumber: Int
+    pageSize: Int
+    sortBy: String
+    identityCheck: [String!]
+    marketingConsent: [String!]
   ): Contacts!
 
   # contact-identity-check
-  contactIdentityCheck(
-    id: String!,
-    checkId: String!,
-  ): ContactIdentityCheck!
+  contactIdentityCheck(id: String!, checkId: String!): ContactIdentityCheck!
 
-  contactIdentityChecks(
-    id: String!,
-    pageNumber: Int,
-    pageSize: Int,
-  ): ContactIdentityChecks!
-
+  contactIdentityChecks(id: String!, pageNumber: Int, pageSize: Int): ContactIdentityChecks!
 }
 
 type Mutation {
+  # appointment
+  createAppointment(
+    start: String
+    end: String
+    followUpOn: String
+    typeId: String
+    description: String
+    organiserId: String
+    negotiatorIds: [String!]
+    officeIds: [String!]
+    attendee: CreateAppointmentInputAttendee
+    propertyId: String
+    accompanied: Boolean
+    negotiatorConfirmed: Boolean
+    attendeeConfirmed: Boolean
+    propertyConfirmed: Boolean
+    recurrence: CreateAppointmentInputRecurrence
+    metadata: JSON
+  ): Boolean
+
+  updateAppointment(
+    id: String!
+    start: String
+    end: String
+    followUpOn: String
+    typeId: String
+    description: String
+    propertyId: String
+    organiserId: String
+    cancelled: Boolean
+    negotiatorIds: [String!]
+    officeIds: [String!]
+    attendee: UpdateAppointmentInputAttendee
+    accompanied: Boolean
+    negotiatorConfirmed: Boolean
+    attendeeConfirmed: Boolean
+    propertyConfirmed: Boolean
+    followUp: UpdateAppointmentInputFollowUp
+    recurrence: UpdateAppointmentInputRecurrence
+    metadata: JSON,
+    _eTag: String!
+  ): Appointment
+
   # contact
   createContact(
-    title: String,
-    forename: String,
-    surname: String,
-    dateOfBirth: String,
-    active: Boolean,
-    marketingConsent: String,
-    communications: [ContactCommunicationInput!],
-    officeIds: [String!],
-    negotiatorIds: [String!],
-    addresses: [ContactAddressInput!],
-    metadata: JSON,
+    title: String
+    forename: String
+    surname: String
+    dateOfBirth: String
+    active: Boolean
+    marketingConsent: String
+    communications: [ContactCommunicationInput!]
+    officeIds: [String!]
+    negotiatorIds: [String!]
+    addresses: [ContactAddressInput!]
+    metadata: JSON
   ): Contact!
 
   updateContact(
-    id: String!,
-    title: String,
-    forename: String,
-    surname: String,
-    dateOfBirth: String,
-    active: Boolean,
-    marketingConsent: String,
-    communications: [ContactCommunicationInput!],
-    officeIds: [String!],
-    negotiatorIds: [String!],
-    addresses: [ContactAddressInput!],
-    metadata: JSON,
+    id: String!
+    title: String
+    forename: String
+    surname: String
+    dateOfBirth: String
+    active: Boolean
+    marketingConsent: String
+    communications: [ContactCommunicationInput!]
+    officeIds: [String!]
+    negotiatorIds: [String!]
+    addresses: [ContactAddressInput!]
+    metadata: JSON
   ): Contact!
 
   # contact-identity-check
   createContactIdentityCheck(
-    contactId: String!,
-    checkDate: String,
-    status: String,
-    negotiatorId: String,
-    documents: [ContactIdentityDocumentInput!],
-    metadata: JSON,
+    contactId: String!
+    checkDate: String
+    status: String
+    negotiatorId: String
+    documents: [ContactIdentityDocumentInput!]
+    metadata: JSON
   ): ContactIdentityCheck!
 
   updateIdentityCheck(
-    id: String!,
-    contactId: String!,
-    checkDate: String,
-    status: String,
-    negotiatorId: String,
-    documents: [ContactIdentityDocumentInput!],
-    metadata: JSON,
+    id: String!
+    contactId: String!
+    checkDate: String
+    status: String
+    negotiatorId: String
+    documents: [ContactIdentityDocumentInput!]
+    metadata: JSON
   ): ContactIdentityCheck!
 
-  login(
-    userName: String!,
-    password: String!,
-    loginType: LoginType!,
-    mode: LoginMode!,
-  ): Token
+  login(userName: String!, password: String!, loginType: LoginType!, mode: LoginMode!): Token
 }
 
 scalar JSON
