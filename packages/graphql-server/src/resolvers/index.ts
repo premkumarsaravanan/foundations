@@ -13,8 +13,8 @@ export const resolvers = {
   Query: {
     contact: queryContact,
     contacts: queryContacts,
-    appointment: queryAppointment,
-    appointments: queryAppointments,
+    getAppointment: queryAppointment,
+    getAppointments: queryAppointments,
   },
   Mutation: {
     login,

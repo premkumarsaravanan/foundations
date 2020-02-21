@@ -5,7 +5,7 @@
 
 type Query {
   # appointment
-  appointments(
+  getAppointments(
     pageSize: Int
     pageNumber: Int
     sortBy: String
@@ -19,7 +19,7 @@ type Query {
     includeCancelled: Boolean
     includeUnconfirmed: Boolean
   ): GetAppointmentsResult!
-  appointment(id: String!): Appointment!
+  getAppointment(id: String!): Appointment!
 
   # contact
   contact(id: String!): Contact!
