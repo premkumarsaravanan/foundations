@@ -138,44 +138,44 @@ export type SearchAppointmentArgs = {
 export type CreateAppointmentArgs = {
   start: string
   end: string
-  followUpOn: string
+  followUpOn?: string
   typeId: string
-  description: string
+  description?: string
   organiserId: string
-  negotiatorIds: string[]
-  officeIds: string[]
-  attendee: CreateAppointmentInputAttendee
-  propertyId: string
-  accompanied: boolean
-  negotiatorConfirmed: boolean
-  attendeeConfirmed: boolean
-  propertyConfirmed: boolean
-  recurrence: CreateAppointmentInputRecurrence
+  negotiatorIds?: string[]
+  officeIds?: string[]
+  attendee?: CreateAppointmentInputAttendee
+  propertyId?: string
+  accompanied?: boolean
+  negotiatorConfirmed?: boolean
+  attendeeConfirmed?: boolean
+  propertyConfirmed?: boolean
+  recurrence?: CreateAppointmentInputRecurrence
   metadata: {
     [name: string]: any
   }
 }
 
 export type UpdateAppointmentArgs = {
-  id: string
-  start: string
-  end: string
-  followUpOn: string
-  typeId: string
-  description: string
-  propertyId: string
-  organiserId: string
-  cancelled: boolean
-  negotiatorIds: string[]
-  officeIds: string[]
-  attendee: UpdateAppointmentInputAttendee
-  accompanied: boolean
-  negotiatorConfirmed: boolean
-  attendeeConfirmed: boolean
-  propertyConfirmed: boolean
-  followUp: UpdateAppointmentInputFollowUp
-  recurrence: UpdateAppointmentInputRecurrence
-  metadata: {
+  id?: string
+  start?: string
+  end?: string
+  followUpOn?: string
+  typeId?: string
+  description?: string
+  propertyId?: string
+  organiserId?: string
+  cancelled?: boolean
+  negotiatorIds?: string[]
+  officeIds?: string[]
+  attendee?: UpdateAppointmentInputAttendee
+  accompanied?: boolean
+  negotiatorConfirmed?: boolean
+  attendeeConfirmed?: boolean
+  propertyConfirmed?: boolean
+  followUp?: UpdateAppointmentInputFollowUp
+  recurrence?: UpdateAppointmentInputRecurrence
+  metadata?: {
     [name: string]: any
   }
   _eTag: string

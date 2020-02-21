@@ -46,14 +46,14 @@ type Query {
 type Mutation {
   # appointment
   createAppointment(
-    start: String
-    end: String
+    start: String!
+    end: String!
     followUpOn: String
-    typeId: String
+    typeId: String!
     description: String
     organiserId: String
-    negotiatorIds: [String!]
-    officeIds: [String!]
+    negotiatorIds: [String!]!
+    officeIds: [String!]!
     attendee: CreateAppointmentInputAttendee
     propertyId: String
     accompanied: Boolean
