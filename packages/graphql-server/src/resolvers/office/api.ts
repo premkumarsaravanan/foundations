@@ -1,8 +1,9 @@
-import { fetcher, setQueryParams } from '@reapit/elements'
+import queryString from 'query-string'
+import { fetcher } from '@reapit/elements'
 import logger from '../../logger'
 import { ServerContext } from '../../app'
 import errors from '../../errors'
-import { API_VERSION, URLS } from '../../constants/api'
+import { URLS, HEADERS } from '../../constants/api'
 import {
   GetOfficesParams,
   OfficeModel,
@@ -12,65 +13,20 @@ import {
   GetOfficeParams,
 } from './offices'
 
-export const fetchOffices = (args: GetOfficesParams, context: ServerContext) =>
-  fetcher({
-    url: `${URLS.offices}/?${setQueryParams(args)}`,
-    api: process.env['PLATFORM_API_BASE_URL'],
-    method: 'GET',
-    headers: {
-      authorization: context.authorization,
-      'Content-Type': 'application/json',
-      'api-version': API_VERSION,
-    },
-  })
-
-export const fetchOfficeById = (args: GetOfficeParams, context: ServerContext) =>
-  fetcher({
-    url: `${URLS.offices}/${args.id}`,
-    api: process.env['PLATFORM_API_BASE_URL'],
-    method: 'GET',
-    headers: {
-      authorization: context.authorization,
-      'Content-Type': 'application/json',
-      'api-version': API_VERSION,
-    },
-  })
-
-export const fetchCreateOffice = (args: CreateOfficeModel, context: ServerContext) =>
-  fetcher({
-    url: `${URLS.offices}`,
-    api: process.env['PLATFORM_API_BASE_URL'],
-    method: 'POST',
-    headers: {
-      authorization: context.authorization,
-      'Content-Type': 'application/json',
-      'api-version': API_VERSION,
-    },
-    body: args,
-  })
-
-export const fetchUpdateOffice = (args: UpdateOfficeParams, context: ServerContext) => {
-  const { id, _eTag, ...body } = args
-  return fetcher({
-    url: `${URLS.offices}/${id}`,
-    api: process.env['PLATFORM_API_BASE_URL'],
-    body: body,
-    method: 'PATCH',
-    headers: {
-      authorization: context.authorization,
-      'Content-Type': 'application/json',
-      'api-version': API_VERSION,
-      'If-Match': _eTag,
-    },
-  })
-}
-
 export const callGetOfficesAPI = async (args: GetOfficesParams, context: ServerContext) => {
   const traceId = context.traceId
   try {
     logger.info('callGetOfficesAPI', { traceId, args })
 
-    const response: PagedResultOfficeModel_ = await fetchOffices(args, context)
+    const response: PagedResultOfficeModel_ = await fetcher({
+      url: `${URLS.offices}/?${queryString.stringify(args)}`,
+      api: process.env['PLATFORM_API_BASE_URL'],
+      method: 'GET',
+      headers: {
+        ...HEADERS,
+        authorization: context.authorization,
+      },
+    })
 
     return response
   } catch (error) {
@@ -85,7 +41,15 @@ export const callGetOfficeByIdAPI = async (args: GetOfficeParams, context: Serve
   logger.info('callGetOfficeByIdAPI', { args, traceId })
 
   try {
-    const response: OfficeModel = await fetchOfficeById(args, context)
+    const response: OfficeModel = await fetcher({
+      url: `${URLS.offices}/${args.id}`,
+      api: process.env['PLATFORM_API_BASE_URL'],
+      method: 'GET',
+      headers: {
+        ...HEADERS,
+        authorization: context.authorization,
+      },
+    })
 
     return response
   } catch (error) {
@@ -99,7 +63,16 @@ export const callCreateOfficeAPI = async (args: CreateOfficeModel, context: Serv
   const traceId = context.traceId
   logger.info('callCreateOfficeAPI', { args, traceId })
   try {
-    await fetchCreateOffice(args, context)
+    await fetcher({
+      url: `${URLS.offices}`,
+      api: process.env['PLATFORM_API_BASE_URL'],
+      method: 'POST',
+      headers: {
+        ...HEADERS,
+        authorization: context.authorization,
+      },
+      body: args,
+    })
 
     return true
   } catch (error) {
@@ -113,12 +86,30 @@ export const callUpdateOfficeAPI = async (args: UpdateOfficeParams, context: Ser
   const traceId = context.traceId
   logger.info('callUpdateOfficeAPI', { args, traceId })
 
-  const { id } = args
-
   try {
-    await fetchUpdateOffice(args, context)
+    const { id, _eTag, ...body } = args
 
-    const response: OfficeModel = await fetchOfficeById({ id }, context)
+    await fetcher({
+      url: `${URLS.offices}/${id}`,
+      api: process.env['PLATFORM_API_BASE_URL'],
+      body: body,
+      method: 'PATCH',
+      headers: {
+        ...HEADERS,
+        authorization: context.authorization,
+        'If-Match': _eTag,
+      },
+    })
+
+    const response: OfficeModel = await fetcher({
+      url: `${URLS.offices}/${args.id}`,
+      api: process.env['PLATFORM_API_BASE_URL'],
+      method: 'GET',
+      headers: {
+        ...HEADERS,
+        authorization: context.authorization,
+      },
+    })
 
     return response
   } catch (error) {
