@@ -24,6 +24,11 @@ type Query {
   contactIdentityCheck(id: String!, checkId: String!): ContactIdentityCheck!
 
   contactIdentityChecks(id: String!, pageNumber: Int, pageSize: Int): ContactIdentityChecks!
+
+  #office
+  office(id: String!): Office!
+
+  offices(pageSize: Int, pageNumber: Int, sortBy: String, id: [String], address: String, name: String): Offices!
 }
 
 type Mutation {
@@ -90,12 +95,14 @@ type Mutation {
   ): Boolean
 
   updateOffice(
+    id: String!
     name: String
     manager: String
     address: OfficeAddressInput
     workPhone: String
     email: String
     metadata: JSON
+    _eTag: String!
   ): Office!
 }
 
