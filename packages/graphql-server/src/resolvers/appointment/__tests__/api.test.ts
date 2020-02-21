@@ -17,7 +17,7 @@ import {
   callCreateAppointmentByAPI,
   callGetAppointmentByIdAPI,
   callGetAppointmentsAPI,
-  callUpdateAppointmentByAPI,
+  callUpdateAppointmentByIdAPI,
   URLS,
 } from '../api'
 
@@ -144,11 +144,11 @@ describe('appointment apis', () => {
     })
   })
 
-  describe('callUpdateAppointmentByAPI', () => {
+  describe('callUpdateAppointmentByIdAPI', () => {
     {
       it('should run the happy case correctly', async () => {
         mockedFetcher.mockImplementation(() => appointment)
-        const result = await callUpdateAppointmentByAPI(updateAppointmentArgs, mockContext)
+        const result = await callUpdateAppointmentByIdAPI(updateAppointmentArgs, mockContext)
 
         expect(fetcher).nthCalledWith(1, {
           url: `${URLS.appointments}/${updateAppointmentArgs.id}`,
@@ -176,7 +176,7 @@ describe('appointment apis', () => {
 
         expect(result).toEqual(appointment)
 
-        expect(mockedLogInfo).toHaveBeenCalledWith('callUpdateAppointmentByAPI', {
+        expect(mockedLogInfo).toHaveBeenCalledWith('callUpdateAppointmentByIdAPI', {
           args: updateAppointmentArgs,
           traceId: mockContext.traceId,
         })
@@ -188,7 +188,7 @@ describe('appointment apis', () => {
         mockedFetcher.mockImplementation(() => {
           throw mockedError
         })
-        const result = await callUpdateAppointmentByAPI(updateAppointmentArgs, mockContext)
+        const result = await callUpdateAppointmentByIdAPI(updateAppointmentArgs, mockContext)
 
         expect(fetcher).nthCalledWith(1, {
           url: `${URLS.appointments}/${updateAppointmentArgs.id}`,
@@ -205,12 +205,12 @@ describe('appointment apis', () => {
 
         expect(result).toEqual(errors.generateUserInputError(mockContext.traceId))
 
-        expect(mockedLogInfo).toHaveBeenCalledWith('callUpdateAppointmentByAPI', {
+        expect(mockedLogInfo).toHaveBeenCalledWith('callUpdateAppointmentByIdAPI', {
           args: updateAppointmentArgs,
           traceId: mockContext.traceId,
         })
 
-        expect(mockedLogError).toHaveBeenCalledWith('callUpdateAppointmentByAPI', {
+        expect(mockedLogError).toHaveBeenCalledWith('callUpdateAppointmentByIdAPI', {
           error: mockedError,
           traceId: mockContext.traceId,
         })

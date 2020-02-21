@@ -59,9 +59,9 @@ export const callGetAppointmentByIdAPI = async (args: GetAppointmentByIdArgs, co
   }
 }
 
-export const callUpdateAppointmentByAPI = async (args: UpdateAppointmentArgs, context: ServerContext) => {
+export const callUpdateAppointmentByIdAPI = async (args: UpdateAppointmentArgs, context: ServerContext) => {
   const traceId = context.traceId
-  logger.info('callUpdateAppointmentByAPI', { args, traceId })
+  logger.info('callUpdateAppointmentByIdAPI', { args, traceId })
   try {
     await fetcher({
       url: `${URLS.appointments}/${args.id}`,
@@ -87,7 +87,7 @@ export const callUpdateAppointmentByAPI = async (args: UpdateAppointmentArgs, co
     })
     return response as Appointment
   } catch (error) {
-    logger.error('callUpdateAppointmentByAPI', { traceId, error })
+    logger.error('callUpdateAppointmentByIdAPI', { traceId, error })
     return errors.generateUserInputError(traceId)
   }
 }

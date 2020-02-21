@@ -10,7 +10,7 @@ import { updateAppointmentById, getAppointments, getAppointmentById, createAppoi
 jest.mock('../api', () => ({
   callGetAppointmentsAPI: jest.fn(() => appointments),
   callGetAppointmentByIdAPI: jest.fn(() => appointment),
-  callUpdateAppointmentByAPI: jest.fn(() => appointment),
+  callUpdateAppointmentByIdAPI: jest.fn(() => appointment),
   callCreateAppointmentByAPI: jest.fn(() => appointment),
 }))
 

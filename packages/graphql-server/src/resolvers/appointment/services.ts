@@ -7,7 +7,7 @@ import {
   CreateAppointmentArgs,
 } from './appointments'
 import {
-  callUpdateAppointmentByAPI,
+  callUpdateAppointmentByIdAPI,
   callGetAppointmentByIdAPI,
   callGetAppointmentsAPI,
   callCreateAppointmentByAPI,
@@ -16,7 +16,7 @@ import {
 export const updateAppointmentById = (args: UpdateAppointmentArgs, context: ServerContext) => {
   const traceId = context.traceId
   logger.info('updateAppointmentByAPI', { traceId, args })
-  const appointment = callUpdateAppointmentByAPI(args, context)
+  const appointment = callUpdateAppointmentByIdAPI(args, context)
   return appointment
 }
 
