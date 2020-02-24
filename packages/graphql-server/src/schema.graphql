@@ -2,7 +2,7 @@
 #import CreateIdentityCheckModelInput, CreateIdentityCheckModelInput_identityDocument1Input, CreateIdentityCheckModelInput_identityDocument2Input, IdentityCheckModel, IdentityCheckModel_identityDocument1, IdentityCheckModel_identityDocument2, PagedResult_IdentityCheckModel_, UpdateIdentityCheckModelInput, UpdateIdentityCheckModelInput_identityDocument1Input, UpdateIdentityCheckModelInput_identityDocument2Input from "./resolvers/identity-check/types.graphql"
 #import Area, Areas from "./resolvers/area/types.graphql"
 #import LoginIdentity, LoginMode, LoginType, Token from './resolvers/auth/types.graphql'
-#import NegotiatorModel, PagedResult_NegotiatorModel_, CreateNegotiatorModelInput, UpdateNegotiatorModelInput from './resolvers/negotiators/types.graphql'
+#import NegotiatorModel, PagedResult_NegotiatorModel_ from './resolvers/negotiators/types.graphql'
 
 type Query {
   # contact
