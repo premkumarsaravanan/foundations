@@ -1,4 +1,4 @@
-import {GetAppointmentsResult} from '../appointments.d'
+import {GetAppointmentsResult} from '../appointments'
 
 export const appointments:GetAppointmentsResult =  {
   _embedded: [
