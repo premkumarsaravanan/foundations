@@ -1,4 +1,4 @@
-import {Appointment} from '../appointments.d'
+import {Appointment} from '../appointments'
 export const appointment:Appointment = {
   id: 'OXF180001',
   created: '2018-12-12T12:30:23.0000000Z',
