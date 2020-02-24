@@ -1,4 +1,5 @@
 import queryString from 'query-string'
+import { UserInputError } from 'apollo-server'
 import { fetcher } from '@reapit/elements'
 import logger from '../../logger'
 import { ServerContext } from '../../app'
@@ -9,17 +10,20 @@ import {
   OfficeModel,
   PagedResultOfficeModel_,
   CreateOfficeModel,
-  UpdateOfficeParams,
+  UpdateOfficeModel,
   GetOfficeParams,
 } from './offices'
 
-export const callGetOfficesAPI = async (args: GetOfficesParams, context: ServerContext) => {
+export const callGetOfficesAPI = async (
+  args: GetOfficesParams,
+  context: ServerContext,
+): Promise<PagedResultOfficeModel_ | UserInputError> => {
   const traceId = context.traceId
   try {
     logger.info('callGetOfficesAPI', { traceId, args })
 
     const response: PagedResultOfficeModel_ = await fetcher({
-      url: `${URLS.offices}/?${queryString.stringify(args)}`,
+      url: `${URLS.offices}?${queryString.stringify(args)}`,
       api: process.env['PLATFORM_API_BASE_URL'],
       method: 'GET',
       headers: {
@@ -36,7 +40,10 @@ export const callGetOfficesAPI = async (args: GetOfficesParams, context: ServerC
   }
 }
 
-export const callGetOfficeByIdAPI = async (args: GetOfficeParams, context: ServerContext) => {
+export const callGetOfficeByIdAPI = async (
+  args: GetOfficeParams,
+  context: ServerContext,
+): Promise<OfficeModel | UserInputError> => {
   const traceId = context.traceId
   logger.info('callGetOfficeByIdAPI', { args, traceId })
 
@@ -59,7 +66,10 @@ export const callGetOfficeByIdAPI = async (args: GetOfficeParams, context: Serve
   }
 }
 
-export const callCreateOfficeAPI = async (args: CreateOfficeModel, context: ServerContext) => {
+export const callCreateOfficeAPI = async (
+  args: CreateOfficeModel,
+  context: ServerContext,
+): Promise<Boolean | UserInputError> => {
   const traceId = context.traceId
   logger.info('callCreateOfficeAPI', { args, traceId })
   try {
@@ -82,7 +92,10 @@ export const callCreateOfficeAPI = async (args: CreateOfficeModel, context: Serv
   }
 }
 
-export const callUpdateOfficeAPI = async (args: UpdateOfficeParams, context: ServerContext) => {
+export const callUpdateOfficeAPI = async (
+  args: UpdateOfficeModel,
+  context: ServerContext,
+): Promise<OfficeModel | UserInputError> => {
   const traceId = context.traceId
   logger.info('callUpdateOfficeAPI', { args, traceId })
 

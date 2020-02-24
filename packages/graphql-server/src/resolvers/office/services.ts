@@ -1,9 +1,20 @@
+import { UserInputError, AuthenticationError } from 'apollo-server'
 import officeAPI from './api'
 import logger from '../../logger'
 import { ServerContext } from '../../app'
-import { UpdateOfficeParams, GetOfficesParams, CreateOfficeModel, GetOfficeParams } from './offices'
+import {
+  UpdateOfficeModel,
+  GetOfficesParams,
+  CreateOfficeModel,
+  GetOfficeParams,
+  PagedResultOfficeModel_,
+  OfficeModel,
+} from './offices'
 
-export const getOffices = (args: GetOfficesParams, context: ServerContext) => {
+export const getOffices = (
+  args: GetOfficesParams,
+  context: ServerContext,
+): Promise<PagedResultOfficeModel_ | UserInputError> | AuthenticationError => {
   const traceId = context.traceId
 
   logger.info('getOffices', { traceId, args })
@@ -13,7 +24,10 @@ export const getOffices = (args: GetOfficesParams, context: ServerContext) => {
   return offices
 }
 
-export const getOfficeById = (args: GetOfficeParams, context: ServerContext) => {
+export const getOfficeById = (
+  args: GetOfficeParams,
+  context: ServerContext,
+): Promise<OfficeModel | UserInputError> | AuthenticationError => {
   const traceId = context.traceId
 
   logger.info('getOfficeById', { traceId, args })
@@ -23,7 +37,10 @@ export const getOfficeById = (args: GetOfficeParams, context: ServerContext) => 
   return office
 }
 
-export const createOffice = (args: CreateOfficeModel, context: ServerContext) => {
+export const createOffice = (
+  args: CreateOfficeModel,
+  context: ServerContext,
+): Promise<Boolean | UserInputError> | AuthenticationError => {
   const traceId = context.traceId
 
   logger.info('createOffice', { traceId, args })
@@ -33,7 +50,10 @@ export const createOffice = (args: CreateOfficeModel, context: ServerContext) =>
   return office
 }
 
-export const updateOffice = (args: UpdateOfficeParams, context: ServerContext) => {
+export const updateOffice = (
+  args: UpdateOfficeModel,
+  context: ServerContext,
+): Promise<OfficeModel | UserInputError> | AuthenticationError => {
   const traceId = context.traceId
 
   logger.info('updateOffice', { traceId, args })

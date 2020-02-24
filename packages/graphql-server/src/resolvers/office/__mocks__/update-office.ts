@@ -1,6 +1,6 @@
-import { UpdateOfficeParams } from '../offices'
+import { UpdateOfficeModel } from '../offices'
 
-export const updateOfficeStub: UpdateOfficeParams = {
+export const updateOfficeStub: UpdateOfficeModel = {
   id: 'OXF',
   name: 'Reapit',
   manager: 'Mr John Smith',
